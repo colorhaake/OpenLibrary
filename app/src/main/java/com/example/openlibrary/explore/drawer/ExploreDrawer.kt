@@ -3,7 +3,6 @@ package com.example.openlibrary.explore.drawer
 import androidx.annotation.DrawableRes
 import androidx.compose.Composable
 import androidx.compose.state
-import androidx.compose.unaryPlus
 import androidx.ui.core.*
 import androidx.ui.foundation.ColoredRect
 import androidx.ui.foundation.DrawImage
@@ -17,6 +16,8 @@ import androidx.ui.text.TextStyle
 import androidx.ui.text.font.FontWeight
 import androidx.ui.text.style.TextOverflow
 import androidx.ui.tooling.preview.Preview
+import androidx.ui.unit.dp
+import androidx.ui.unit.sp
 import com.example.openlibrary.R
 import com.example.openlibrary.style.COLOR_PRIMARY
 import com.example.openlibrary.style.ROBOTO_FONT_FAMILY
@@ -30,8 +31,8 @@ fun ExploreDrawer() {
         header = { Profile() },
         divider = { Divider(color = Color(0x1E000000)) },
         bodyColor = Color(0xFFFAFAFA),
-        bodyModifier = Expanded,
-        bodyItems = listOf(
+        bodyModifier = LayoutSize.Fill,
+        bodyItems = listOf<@Composable() () -> Unit>(
             { Navigation() },
             { Settings() }
         )
@@ -40,28 +41,22 @@ fun ExploreDrawer() {
 
 @Composable
 private fun Profile() {
-    val bgImage = +imageResource(R.drawable.illustration)
-    Container(modifier = ExpandedWidth, height = 148.dp) {
-        Stack {
-            expanded {
-                ColoredRect(color = COLOR_PRIMARY)
+    val bgImage = imageResource(R.drawable.illustration)
+    Container(modifier = LayoutWidth.Fill, height = 148.dp) {
+        Stack(modifier = LayoutWidth.Fill) {
+            ColoredRect(modifier = LayoutGravity.Stretch, color = COLOR_PRIMARY)
+
+            Container(
+                modifier = LayoutGravity.TopRight + LayoutPadding(top = 4.dp),
+                width = 191.dp,
+                height = 144.dp
+            ) {
+                DrawImage(image = bgImage)
             }
 
-            aligned(alignment = Alignment.TopRight) {
-                Container(
-                    modifier = Spacing(top = 4.dp),
-                    width = 191.dp,
-                    height = 144.dp
-                ) {
-                    DrawImage(image = bgImage)
-                }
-            }
-
-            aligned(alignment = Alignment.TopLeft) {
-                Column {
-                    Avatar()
-                    UserInfo()
-                }
+            Column(modifier = LayoutGravity.TopLeft) {
+                Avatar()
+                UserInfo()
             }
         }
     }
@@ -69,10 +64,10 @@ private fun Profile() {
 
 @Composable
 private fun Avatar() {
-    val userImage = +imageResource(R.drawable.userpic)
+    val userImage = imageResource(R.drawable.userpic)
 
     Container(
-        modifier = Spacing(left = 16.dp, top = 16.dp),
+        modifier = LayoutPadding(left = 16.dp, top = 16.dp),
         width = 64.dp,
         height = 64.dp
     ) {
@@ -85,7 +80,7 @@ private fun Avatar() {
 @Composable
 private fun UserInfo() {
     Container(
-        modifier = Spacing(top = 4.dp, bottom = 8.dp),
+        modifier = LayoutPadding(top = 4.dp, bottom = 8.dp),
         padding = EdgeInsets(left = 16.dp, top = 7.dp, right = 16.dp, bottom = 7.dp)
     ) {
         Column {
@@ -117,7 +112,7 @@ private fun UserInfo() {
 
 @Composable
 private fun Navigation() {
-    Column(modifier = Spacing(top = 8.dp)) {
+    Column(modifier = LayoutPadding(top = 8.dp)) {
         NavigationItem(
             activeIcon = R.drawable.ic_explore_active,
             inactiveIcon = R.drawable.ic_explore_inactive,
@@ -144,7 +139,7 @@ private fun NavigationItem(
     @DrawableRes activeIcon: Int,
     @DrawableRes inactiveIcon: Int,
     title: String,
-    onClick: () -> Unit
+    onClick: (() -> Unit)? = null
 ) {
     // TODO add click selector for active state
     ListItem(
@@ -197,7 +192,7 @@ private fun SettingsLabel() {
 
 @Composable
 private fun NotificationItem() {
-    val checkedState = +state { true }
+    val checkedState = state { true }
 
     ListItem(
         left = {

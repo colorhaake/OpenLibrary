@@ -1,7 +1,6 @@
 package com.example.openlibrary.widget
 
 import androidx.compose.Composable
-import androidx.compose.unaryPlus
 import androidx.ui.core.*
 import androidx.ui.foundation.Clickable
 import androidx.ui.graphics.Color
@@ -9,17 +8,19 @@ import androidx.ui.layout.*
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.ripple.Ripple
 import androidx.ui.material.surface.Surface
+import androidx.ui.unit.Dp
+import androidx.ui.unit.dp
 import com.example.openlibrary.extension.join
 
 @Composable
 fun ListView(
     header: (@Composable() () -> Unit)? = null,
     divider: (@Composable() () -> Unit)? = null,
-    bodyColor: Color = (+MaterialTheme.colors()).surface,
+    bodyColor: Color = MaterialTheme.colors().surface,
     bodyModifier: Modifier = Modifier.None,
     bodyItems: List<@Composable() () -> Unit>
 ) {
-    Column(modifier = Expanded) {
+    Column(modifier = LayoutHeight.Fill) {
         header?.invoke()
 
         val items = if (divider != null) bodyItems.join(divider) else bodyItems
@@ -41,27 +42,27 @@ fun ListItem(
     onClick: (() -> Unit)? = null
 ) {
     // TODO add click selector for active state
-    Ripple(bounded = true) {
+    Ripple(bounded = true, enabled = onClick != null) {
         Clickable(onClick = onClick) {
             Container(
                 padding = padding,
                 height = height
             ) {
-                Stack(modifier = ExpandedWidth) {
+                Stack(modifier = LayoutWidth.Fill) {
                     left?.apply {
-                        aligned(alignment = Alignment.CenterLeft) {
+                        Container(modifier = LayoutGravity.CenterLeft) {
                             this()
                         }
                     }
 
                     middle?.apply {
-                        positioned(leftInset = 72.dp, rightInset = 72.dp) {
+                        Container(modifier = LayoutPadding(left = 72.dp, right = 72.dp)) {
                             this()
                         }
                     }
 
                     right?.apply {
-                        aligned(alignment = Alignment.CenterRight) {
+                        Container(modifier = LayoutGravity.CenterRight) {
                             this()
                         }
                     }

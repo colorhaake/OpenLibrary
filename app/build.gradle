@@ -33,6 +33,9 @@ android {
         compose true
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion "$compose_version"
+    }
 }
 
 dependencies {
@@ -41,11 +44,13 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.ui:ui-framework:0.1.0-dev03'
-    implementation 'androidx.ui:ui-layout:0.1.0-dev03'
-    implementation 'androidx.ui:ui-material:0.1.0-dev03'
-    implementation 'androidx.ui:ui-foundation:0.1.0-dev03'
-    implementation 'androidx.ui:ui-tooling:0.1.0-dev03'
+    implementation "androidx.compose:compose-compiler:$compose_version"
+    implementation "androidx.compose:compose-runtime:$compose_version"
+    implementation "androidx.ui:ui-framework:$compose_version"
+    implementation "androidx.ui:ui-layout:$compose_version"
+    implementation "androidx.ui:ui-material:$compose_version"
+    implementation "androidx.ui:ui-foundation:$compose_version"
+    implementation "androidx.ui:ui-tooling:$compose_version"
     implementation 'com.squareup.picasso:picasso:2.71828'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
