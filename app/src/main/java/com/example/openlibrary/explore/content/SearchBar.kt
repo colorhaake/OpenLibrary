@@ -2,7 +2,6 @@ package com.example.openlibrary.explore.content
 
 import androidx.compose.Composable
 import androidx.ui.core.Modifier
-import androidx.ui.core.TextField
 import androidx.ui.foundation.ContentPadding
 import androidx.ui.graphics.Color
 import androidx.ui.input.ImeAction
@@ -10,8 +9,12 @@ import androidx.ui.layout.Container
 import androidx.ui.layout.LayoutPadding
 import androidx.ui.layout.LayoutSize
 import androidx.ui.layout.LayoutWidth
+import androidx.ui.text.TextStyle
 import androidx.ui.unit.dp
+import androidx.ui.unit.sp
 import com.example.openlibrary.R
+import com.example.openlibrary.style.ROBOTO_FONT_FAMILY
+import com.example.openlibrary.widget.ExTextField
 import com.example.openlibrary.widget.LeftMiddleRight
 import com.example.openlibrary.widget.VectorImageButton
 
@@ -48,8 +51,14 @@ fun SearchBar(
                         right = 55.dp
                     )
                 ) {
-                    TextField(
-                        value = "Search books, genres & authors",
+                    ExTextField(
+                        value = "",
+                        hintValue = "Search books, genres & authors",
+                        hintTextStyle = TextStyle(
+                            color = Color(0x61000000),
+                            fontSize = 16.sp,
+                            fontFamily = ROBOTO_FONT_FAMILY
+                        ),
                         onValueChange = {},
                         imeAction = ImeAction.Search,
                         onImeActionPerformed = {}
