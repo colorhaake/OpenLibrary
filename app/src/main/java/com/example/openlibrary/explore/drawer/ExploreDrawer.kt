@@ -5,6 +5,7 @@ import androidx.compose.Composable
 import androidx.compose.state
 import androidx.ui.core.*
 import androidx.ui.foundation.ColoredRect
+import androidx.ui.foundation.ContentPadding
 import androidx.ui.foundation.DrawImage
 import androidx.ui.foundation.shape.corner.CircleShape
 import androidx.ui.graphics.Color
@@ -21,7 +22,7 @@ import androidx.ui.unit.sp
 import com.example.openlibrary.R
 import com.example.openlibrary.style.COLOR_PRIMARY
 import com.example.openlibrary.style.ROBOTO_FONT_FAMILY
-import com.example.openlibrary.widget.ListItem
+import com.example.openlibrary.widget.LeftMiddleRight
 import com.example.openlibrary.widget.ListView
 import com.example.openlibrary.widget.VectorImage
 
@@ -30,7 +31,6 @@ fun ExploreDrawer() {
     ListView(
         header = { Profile() },
         divider = { Divider(color = Color(0x1E000000)) },
-        bodyColor = Color(0xFFFAFAFA),
         bodyModifier = LayoutSize.Fill,
         bodyItems = listOf<@Composable() () -> Unit>(
             { Navigation() },
@@ -142,13 +142,16 @@ private fun NavigationItem(
     onClick: (() -> Unit)? = null
 ) {
     // TODO add click selector for active state
-    ListItem(
+    LeftMiddleRight(
+        modifier = LayoutHeight(48.dp),
+        padding = ContentPadding(left = 16.dp, top = 12.dp, right = 16.dp, bottom = 12.dp),
         left = {
             VectorImage(id = inactiveIcon)
         },
         middle = {
             Text(
                 text = title,
+                modifier = LayoutPadding(left = 72.dp, right = 72.dp),
                 style = TextStyle(
                     color = Color(0xDE000000),
                     fontSize = 14.sp,
@@ -177,30 +180,35 @@ private fun Settings() {
 
 @Composable
 private fun SettingsLabel() {
-    ListItem(left = {
-        Text(
-            text = "Settings",
-            style = TextStyle(
-                color = Color(0x8A000000),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.W500,
-                fontFamily = ROBOTO_FONT_FAMILY
+    LeftMiddleRight(
+        modifier = LayoutHeight(48.dp),
+        padding = ContentPadding(left = 16.dp, top = 12.dp, right = 16.dp, bottom = 12.dp),
+        left = {
+            Text(
+                text = "Settings",
+                style = TextStyle(
+                    color = Color(0x8A000000),
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.W500,
+                    fontFamily = ROBOTO_FONT_FAMILY
+                )
             )
-        )
-    })
+        }
+    )
 }
 
 @Composable
 private fun NotificationItem() {
     val checkedState = state { true }
 
-    ListItem(
-        left = {
-            VectorImage(id = R.drawable.ic_bell_inactive)
-        },
+    LeftMiddleRight(
+        modifier = LayoutHeight(48.dp),
+        padding = ContentPadding(left = 16.dp, top = 12.dp, right = 16.dp, bottom = 12.dp),
+        left = { VectorImage(id = R.drawable.ic_bell_inactive) },
         middle = {
             Text(
                 text = "Notifications",
+                modifier = LayoutPadding(left = 72.dp, right = 72.dp),
                 style = TextStyle(
                     color = Color(0xDE000000),
                     fontSize = 14.sp,

@@ -5,6 +5,7 @@ import androidx.compose.state
 import androidx.ui.material.DrawerState
 import androidx.ui.material.MaterialTheme
 import androidx.ui.material.ModalDrawerLayout
+import com.example.openlibrary.explore.content.ExploreContent
 import com.example.openlibrary.explore.drawer.ExploreDrawer
 
 @Composable
